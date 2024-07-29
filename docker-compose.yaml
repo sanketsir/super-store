@@ -1,0 +1,19 @@
+
+    
+services:
+  python-app:
+    platform: linux/amd64
+    image: sanket7420/super-store-app
+    build:
+      context: .
+    ports:
+      - "8000:80"
+
+    volumes:
+      - python_data:/var/lib/pythondata
+volumes:
+  python_data: { }
+
+
+
+

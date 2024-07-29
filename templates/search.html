@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 80%;
+            margin-top: 20px;
+        }
+        li {
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        form {
+            display: flex;
+            align-items: center;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            margin-left: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            text-align: center;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .vector {
+            width: 100%;
+            max-width: 600px; /* Adjust max-width as needed */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if products %}
+        <ul>
+        {% for product in products %}
+            <li>
+                <div>
+                    <strong>{{ product[1] }}</strong> - {{ product[2] }} - ${{ product[3] }} - {{ product[4] }} in stock
+                </div>
+                <form action="/order" method="post">
+                    <input type="hidden" name="product_code" value="{{ product[0] }}">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="{{ product[4] }}" required>
+                    <button type="submit">Order</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No products found.</p>
+    {% endif %}
+    <a href="/">Go back</a>
+
+    <!-- Example vector graphic for illustration -->
+    <svg class="vector" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="#4CAF50"/>
+    </svg>
+</body>
+</html>
